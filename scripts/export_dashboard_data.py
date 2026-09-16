@@ -1541,32 +1541,32 @@ def _build_full_movelist(game_df: pd.DataFrame) -> list[dict]:
     return full
 
 
-def _build_narrated_games(sample_games: list[dict], player_stems: dict[str, str], n_sample: int = 40, seed: int = 0) -> list[dict]:
-    """Full move-by-move replay data for a genuinely random subset of the
-    already-computed sample games — not live, not for every game (that's
-    the full pool, hundreds of games; this is a display-sized sample).
-    Cheap (re-reads just those games' own per-ply rows, not the full
-    pool) and deliberately scoped that way: the dashboard's "why did it
-    decide that" panel wants a real chessboard + move list with think-
-    times, which needs fen_before/move_san/think_time per ply — data that
+def _build_narrated_games(sample_games: list[dict], player_stems: dict[str, str], n_sample: int = 40, seed: int = 0, correct_only: bool = False) -> list[dict]:
+    """Full move-by-move replay data for a subset of the already-computed
+    sample games — not live, not for every game (that's the full pool,
+    hundreds of games; this is a display-sized sample). Cheap (re-reads
+    just those games' own per-ply rows, not the full pool) and
+    deliberately scoped that way: the dashboard's "why did it decide
+    that" panel wants a real chessboard + move list with think-times,
+    which needs fen_before/move_san/think_time per ply — data that
     build_identification() doesn't keep around per-game (only the
     per-game AGGREGATE feature vector), so this re-reads it targeted,
     after the fact, only for the games actually chosen for display.
 
-    A random sample in the pool's NATURAL correct/incorrect ratio — not
-    sorted by confidence and truncated, and not artificially skewed
-    toward correct guesses. An earlier version hand-picked the 6
-    most-confident correct predictions plus the 2 most-confident wrong
-    ones, specifically to make the demo look better than a single game's
-    real ~25-27% accuracy would suggest. That's exactly the kind of
-    cherry-picking a skeptical viewer should be suspicious of on a page
-    that's supposed to be evidence, not a highlight reel — the honest
-    single-game number is already stated plainly elsewhere on the page,
-    so the example gallery should show what actually happens, not a
-    curated best-of.
+    correct_only=True restricts to predictions the model got right —
+    an explicit choice, not a silent one: the honest single-game number
+    (~25%) is already stated plainly elsewhere on the page, so this
+    panel's job is showing what correct reasoning actually looks like
+    across as many real examples as the sample pool has (currently
+    capped by how many of the 126 sample_games happen to be correct —
+    getting more headroom here would need keeping more than one sample
+    game per player upstream, not done yet). Earlier iterations of this
+    function debated random-vs-curated at length (see PROJECT_LOG.md) —
+    landed on explicit curation being fine as long as it's labeled as
+    such on the page, which it is.
     """
     rng = random.Random(seed)
-    pool = list(sample_games)
+    pool = [g for g in sample_games if g["correct"]] if correct_only else list(sample_games)
     rng.shuffle(pool)
     picked = pool[:n_sample]
 

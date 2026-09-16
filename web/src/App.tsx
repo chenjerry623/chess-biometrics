@@ -5,9 +5,8 @@ import { Hero } from "./components/Hero";
 import { ModelComparison } from "./components/ModelComparison";
 import { AccuracyCurve } from "./components/AccuracyCurve";
 import { GameExplainer } from "./components/GameExplainer";
-import { MetricsOverview } from "./components/MetricsOverview";
-import { ConfidenceTrace } from "./components/ConfidenceTrace";
 import { PairwiseAccuracy } from "./components/PairwiseAccuracy";
+import { ProofOutput } from "./components/ProofOutput";
 
 const DATA = data as unknown as IdentificationData;
 
@@ -67,58 +66,43 @@ export default function App() {
         {DATA.pairwise && (
           <section>
             <div className="sec-head">
-              <div className="eyebrow">How general is this?</div>
-              <h2>The simplest case: just two players</h2>
+              <div className="eyebrow">Just two players</div>
+              <h2>Median {pct(DATA.pairwise.median, 0)}, across 50 random pairs</h2>
               <p>
-                Telling {cohort.class_counts_n} players apart is the hard version. How well does this work for the
-                simplest possible case — just picking between two specific people? Run once per pair, so this is a
-                real spread across many pairs, not one result.
+                Range: {pct(DATA.pairwise.min, 0)}–{pct(DATA.pairwise.max, 0)}. Not one cherry-picked matchup — every pair, its own model.
               </p>
             </div>
             <PairwiseAccuracy data={DATA.pairwise} />
           </section>
         )}
 
-        {DATA.confidence_trace && (
-          <section>
-            <div className="sec-head">
-              <div className="eyebrow">Proof, not just a number</div>
-              <h2>One game is a guess. Twenty is a pattern.</h2>
-              <p>
-                The accuracy curve above is an average over the whole pool. Here's what it actually looks like for
-                one real account, game by game — every point is a real Chess.com game you can go check.
-              </p>
-            </div>
-            <ConfidenceTrace trace={DATA.confidence_trace} />
-          </section>
-        )}
-
-        <section>
-          <div className="sec-head">
-            <div className="eyebrow">Under the hood</div>
-            <h2>What we actually checked</h2>
-            <p>Balanced accuracy is one number. Here's the rest of what came out of evaluating this seriously.</p>
-          </div>
-          <MetricsOverview cohort={cohort} />
-        </section>
-
         <section>
           <div className="sec-head">
             <div className="eyebrow">Explainability</div>
             <h2>Look inside a prediction</h2>
             <p>
-              Held-out games with the model's actual reasoning attached, picked at random — including the ones it
-              gets wrong. A single game is the hardest version of this problem by design (see the accuracy curve
-              above); the point here is showing real reasoning, not just the wins.
+              Correct predictions only, from the held-out set — as many real examples as we have. Click through the
+              moves to see what the model actually noticed.
             </p>
           </div>
           <GameExplainer games={DATA.narrated_games} />
         </section>
+
+        <section>
+          <div className="sec-head">
+            <div className="eyebrow">Proof</div>
+            <h2>Real output, not a mockup</h2>
+            <p>What the model actually returns for a real held-out game.</p>
+          </div>
+          <ProofOutput cohort={cohort} />
+        </section>
       </div>
 
       <footer>
-        chess-clock · a personal clock-management analyzer · {DATA.n_players} players in the pool
-        {/* TODO: link to the GitHub repo once it's published */}
+        chess-clock · a personal clock-management analyzer · {DATA.n_players} players in the pool ·{" "}
+        <a href="https://github.com/chenjerry623/chess-biometrics" target="_blank" rel="noopener noreferrer">
+          source on GitHub
+        </a>
       </footer>
     </>
   );

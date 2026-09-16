@@ -11,22 +11,6 @@ export function PairwiseAccuracy({ data }: { data: PairwiseSummary }) {
 
   return (
     <div className="card">
-      <h3>Not just one pair — {data.n_pairs} of them</h3>
-      <p className="deck" style={{ marginBottom: 14 }}>
-        The 2-player number elsewhere on this page is one specific pair. Here it is redone {data.n_pairs} times
-        with random pairs from the full pool, each with its own cross-validated model — so this is a distribution,
-        not a single result that might just be an easy pair.
-      </p>
-      <div className="grid duo" style={{ marginBottom: 14 }}>
-        <div className="stat">
-          <span className="k">Median accuracy, any random pair</span>
-          <span className="v mono">{pct(data.median)}</span>
-        </div>
-        <div className="stat">
-          <span className="k">Range across {data.n_pairs} pairs</span>
-          <span className="v mono">{pct(data.min)}–{pct(data.max)}</span>
-        </div>
-      </div>
       <div className="strength-strip" style={{ height: 70 }}>
         {sorted.map((p) => {
           const h = Math.max(2, ((p.balanced_accuracy - 0.5) / 0.5) * 100);
