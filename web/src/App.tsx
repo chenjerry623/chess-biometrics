@@ -7,6 +7,7 @@ import { AccuracyCurve } from "./components/AccuracyCurve";
 import { GameExplainer } from "./components/GameExplainer";
 import { MetricsOverview } from "./components/MetricsOverview";
 import { ConfidenceTrace } from "./components/ConfidenceTrace";
+import { PairwiseAccuracy } from "./components/PairwiseAccuracy";
 
 const DATA = data as unknown as IdentificationData;
 
@@ -62,6 +63,21 @@ export default function App() {
             <AccuracyCurve cohort={cohort} />
           </div>
         </section>
+
+        {DATA.pairwise && (
+          <section>
+            <div className="sec-head">
+              <div className="eyebrow">How general is this?</div>
+              <h2>The simplest case: just two players</h2>
+              <p>
+                Telling {cohort.class_counts_n} players apart is the hard version. How well does this work for the
+                simplest possible case — just picking between two specific people? Run once per pair, so this is a
+                real spread across many pairs, not one result.
+              </p>
+            </div>
+            <PairwiseAccuracy data={DATA.pairwise} />
+          </section>
+        )}
 
         {DATA.confidence_trace && (
           <section>

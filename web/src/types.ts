@@ -94,6 +94,27 @@ export interface ConfidenceTrace {
   trace: ConfidenceTracePoint[];
 }
 
+export interface PairwiseResult {
+  pair: [string, string];
+  n_games: number;
+  balanced_accuracy: number;
+  lr: number;
+  hgb: number;
+  lightgbm: number;
+}
+
+export interface PairwiseSummary {
+  feature_mode: "full" | "biometric";
+  n_pairs: number;
+  median: number;
+  min: number;
+  max: number;
+  mean: number;
+  q25: number;
+  q75: number;
+  pairs: PairwiseResult[];
+}
+
 export interface MoveEntry {
   san: string;
   is_own: boolean;
@@ -126,4 +147,5 @@ export interface IdentificationData {
   pool: Cohort;
   narrated_games: NarratedGame[];
   confidence_trace: ConfidenceTrace | null;
+  pairwise: PairwiseSummary | null;
 }
