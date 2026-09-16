@@ -16,10 +16,14 @@ export function AccuracyCurve({ cohort }: { cohort: Cohort }) {
 
   const linePath = points.map((p, i) => `${i === 0 ? "M" : "L"} ${x(p.n_games)} ${y(p.balanced_accuracy)}`).join(" ");
   const chanceY = y(cohort.chance_baseline);
+  const best = points.reduce((a, b) => (b.balanced_accuracy > a.balanced_accuracy ? b : a), points[0]);
 
   return (
     <div className="card">
       <h3>More games, better guess</h3>
+      <p className="deck" style={{ marginBottom: 6, color: "var(--accent-strong)", fontWeight: 600 }}>
+        Peaks at {best.n_games} games: {pct(best.balanced_accuracy)} balanced accuracy.
+      </p>
       <p className="deck" style={{ marginBottom: 10 }}>
         One game alone is a weak signal — that's true of most behavioral biometrics, not just this one. Give it a
         handful of games from the same {cohort.class_counts_n}-player pool and accuracy climbs fast.
