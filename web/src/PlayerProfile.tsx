@@ -129,6 +129,17 @@ export function PlayerProfile() {
               </span>
             ))}
           </div>
+          <div className="footnote" style={{ marginTop: 14, marginBottom: 0 }}>
+            Every move gets sorted by two things: did they spend more or less time than expected for a position that
+            hard, and was the position actually critical (a real decision, not a forced or near-forced move).
+            <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 5 }}>
+              <div><b>Clean:</b> time spent roughly matched what the position called for.</div>
+              <div><b>Instinctive:</b> quick, critical, and still the right move. Found it on pattern alone.</div>
+              <div><b>Overthought:</b> took extra time on a position that didn't really need it, but got it right anyway.</div>
+              <div><b>Underthought:</b> rushed through a genuinely critical position and got it wrong.</div>
+              <div><b>Panic:</b> spent extra time and still got it wrong. The extra time didn't help.</div>
+            </div>
+          </div>
         </div>
       )}
 
