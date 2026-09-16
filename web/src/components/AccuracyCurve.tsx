@@ -14,10 +14,10 @@ export function AccuracyCurve({ cohort }: { cohort: Cohort }) {
 
   return (
     <div className="card">
-      <h3>Accuracy scales with how many games you look at</h3>
+      <h3>More games, better guess</h3>
       <p className="deck" style={{ marginBottom: 10 }}>
-        A single game is a weak signal — no real biometric system decides off one sample either. Balanced accuracy
-        across {cohort.class_counts_n} players, held-out test set.
+        One game alone is a weak signal — that's true of most behavioral biometrics, not just this one. Give it a
+        handful of games from the same {cohort.class_counts_n}-player pool and accuracy climbs fast.
       </p>
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ maxWidth: W }}>
         <line x1={padL} y1={chanceY} x2={W - padR} y2={chanceY} stroke="var(--text-muted)" strokeDasharray="3 3" opacity={0.5} />

@@ -12,10 +12,9 @@ export function ModelComparison({ cohort }: { cohort: Cohort }) {
 
   return (
     <div className="card">
-      <h3>Model comparison</h3>
+      <h3>Which model actually wins</h3>
       <p className="deck" style={{ marginBottom: 12 }}>
-        All candidates are cross-validated every run — the best on held-out balanced accuracy wins, never assumed in
-        advance.
+        Every run cross-validates all three and picks whichever scores best on data it hasn't seen. No favorites.
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {entries.map(([key, v]) => {

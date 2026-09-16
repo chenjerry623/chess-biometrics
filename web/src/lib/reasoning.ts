@@ -86,10 +86,10 @@ export interface ReasonSentenceResult {
 export function reasonSentence(r: TopReason, predictedPlayer: string, moves?: MoveEntry[]): ReasonSentenceResult {
   const label = featureLabel(r.feature);
   const toward = r.contribution >= 0;
-  const dir = toward ? "pointed toward" : "pointed away from";
+  const mark = toward ? "a mark for" : "a mark against";
 
   if (r.feature === "hour" || r.feature === "dow") {
-    return { html: `${label} was a distinctive, unusual pattern for this game, which ${dir} <b>${predictedPlayer}</b>.` };
+    return { html: `Even just when this game was played — the hour, the day of the week — was ${mark} <b>${predictedPlayer}</b>.` };
   }
 
   if (r.feature === "post_mistake_think_delta" && r.linked_move_idx != null && moves) {
@@ -98,7 +98,7 @@ export function reasonSentence(r: TopReason, predictedPlayer: string, moves?: Mo
     if (mistakeMove && reactionMove && reactionMove.think_time != null) {
       const slower = (r.linked_delta || 0) >= 0;
       return {
-        html: `After the mistake on <b>${mistakeMove.san}</b>, they took <b>${reactionMove.think_time.toFixed(1)}s</b> on the next move — ${slower ? "noticeably longer" : "noticeably shorter"} than their average, which ${dir} <b>${predictedPlayer}</b>.`,
+        html: `After missing <b>${mistakeMove.san}</b>, they spent <b>${reactionMove.think_time.toFixed(1)}s</b> on the next move — ${slower ? "way longer" : "way shorter"} than usual for them. That's ${mark} <b>${predictedPlayer}</b>.`,
         linkedMoveIdx: r.linked_move_idx,
       };
     }
@@ -108,7 +108,7 @@ export function reasonSentence(r: TopReason, predictedPlayer: string, moves?: Mo
     const m = moves[r.linked_move_idx];
     if (m && m.think_time != null) {
       return {
-        html: `${label}: with the clock nearly out, they took <b>${m.think_time.toFixed(1)}s</b> on <b>${m.san}</b>, which ${dir} <b>${predictedPlayer}</b>.`,
+        html: `Clock almost out, and they still spent <b>${m.think_time.toFixed(1)}s</b> on <b>${m.san}</b> — ${mark} <b>${predictedPlayer}</b>.`,
         linkedMoveIdx: r.linked_move_idx,
       };
     }
@@ -116,5 +116,5 @@ export function reasonSentence(r: TopReason, predictedPlayer: string, moves?: Mo
 
   const val = formatFeatureValue(r.feature, r.value);
   const cmp = describeVsTypical(r.value, r.pool_mean, r.pool_std);
-  return { html: `${label}: <b>${val}</b>${cmp ? ` — ${cmp}` : ""}, which ${dir} <b>${predictedPlayer}</b>.` };
+  return { html: `${label}: <b>${val}</b>${cmp ? `, ${cmp}` : ""} — ${mark} <b>${predictedPlayer}</b>.` };
 }

@@ -35,14 +35,17 @@ function MoveCell({ entry, active, onClick }: { entry?: MoveEntry & { idx: numbe
 }
 
 export function GameExplainer({ games }: { games: NarratedGame[] }) {
-  const [narratedIdx, setNarratedIdx] = useState(0);
+  const [narratedIdx, setNarratedIdx] = useState(() => Math.floor(Math.random() * games.length));
   const game = games[narratedIdx % games.length];
 
   const firstKeyIdx = useMemo(() => game.moves.findIndex((m) => m.key_moment), [game]);
   const [moveIdx, setMoveIdx] = useState(firstKeyIdx >= 0 ? firstKeyIdx : 0);
 
-  function goToGame(delta: number) {
-    const next = (narratedIdx + delta + games.length) % games.length;
+  function goToRandomGame() {
+    let next = narratedIdx;
+    if (games.length > 1) {
+      while (next === narratedIdx) next = Math.floor(Math.random() * games.length);
+    }
     setNarratedIdx(next);
     const g = games[next];
     const fk = g.moves.findIndex((m) => m.key_moment);
@@ -69,7 +72,7 @@ export function GameExplainer({ games }: { games: NarratedGame[] }) {
 
   return (
     <div className="card">
-      <h3>Why did it decide that?</h3>
+      <h3>This one game</h3>
       <p className="deck" style={{ marginBottom: 4 }}>
         Game {game.game_id}, {game.moves.length} moves. {summary}
         {gameLink && <> <a href={gameLink} target="_blank" rel="noopener noreferrer">View this exact game on Chess.com →</a></>}
@@ -147,7 +150,7 @@ export function GameExplainer({ games }: { games: NarratedGame[] }) {
       </div>
 
       <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-        <button className="btn primary" type="button" onClick={() => goToGame(1)}>Another game →</button>
+        <button className="btn primary" type="button" onClick={goToRandomGame}>Show me a random one →</button>
       </div>
     </div>
   );

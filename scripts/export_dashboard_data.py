@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import gc
 import json
+import random
 from pathlib import Path
 
 import numpy as np
@@ -1540,10 +1541,11 @@ def _build_full_movelist(game_df: pd.DataFrame) -> list[dict]:
     return full
 
 
-def _build_narrated_games(sample_games: list[dict], player_stems: dict[str, str], n_correct: int = 6, n_incorrect: int = 2) -> list[dict]:
-    """Full move-by-move replay data for a small, HAND-PICKED subset of the
-    already-computed sample games — not live, not for every game. Cheap
-    (re-reads just a handful of games' own per-ply rows, not the full
+def _build_narrated_games(sample_games: list[dict], player_stems: dict[str, str], n_sample: int = 40, seed: int = 0) -> list[dict]:
+    """Full move-by-move replay data for a genuinely random subset of the
+    already-computed sample games — not live, not for every game (that's
+    the full pool, hundreds of games; this is a display-sized sample).
+    Cheap (re-reads just those games' own per-ply rows, not the full
     pool) and deliberately scoped that way: the dashboard's "why did it
     decide that" panel wants a real chessboard + move list with think-
     times, which needs fen_before/move_san/think_time per ply — data that
@@ -1551,20 +1553,22 @@ def _build_narrated_games(sample_games: list[dict], player_stems: dict[str, str]
     per-game AGGREGATE feature vector), so this re-reads it targeted,
     after the fact, only for the games actually chosen for display.
 
-    Picks the most-confident correct predictions (clean examples) and the
-    most-confident incorrect ones (interesting failure cases) — the same
-    confidence-sorted order the rest of the dashboard already uses.
-    Weighted toward correct examples by default (6:2): single-game
-    accuracy is genuinely ~27% on the full pool, and a demo reel drawn
-    evenly from correct/incorrect would show a wrong guess more often
-    than the real headline (multi-game) accuracy ever implies — still
-    keeps real wrong examples for honesty, just doesn't let the demo's
-    first impression undersell what the model can actually do once
-    several games are considered together.
+    A random sample in the pool's NATURAL correct/incorrect ratio — not
+    sorted by confidence and truncated, and not artificially skewed
+    toward correct guesses. An earlier version hand-picked the 6
+    most-confident correct predictions plus the 2 most-confident wrong
+    ones, specifically to make the demo look better than a single game's
+    real ~25-27% accuracy would suggest. That's exactly the kind of
+    cherry-picking a skeptical viewer should be suspicious of on a page
+    that's supposed to be evidence, not a highlight reel — the honest
+    single-game number is already stated plainly elsewhere on the page,
+    so the example gallery should show what actually happens, not a
+    curated best-of.
     """
-    correct = sorted((g for g in sample_games if g["correct"]), key=lambda g: -(g["confidence"] or 0))
-    incorrect = sorted((g for g in sample_games if not g["correct"]), key=lambda g: -(g["confidence"] or 0))
-    picked = correct[:n_correct] + incorrect[:n_incorrect]
+    rng = random.Random(seed)
+    pool = list(sample_games)
+    rng.shuffle(pool)
+    picked = pool[:n_sample]
 
     narrated = []
     for g in picked:

@@ -14,15 +14,15 @@ export function Hero({ cohort, nPlayers }: { cohort: Cohort; nPlayers: number })
   return (
     <section className="hero" style={{ borderBottom: "1px solid var(--line)" }}>
       <div>
-        <h2>Clock behavior is a fingerprint.</h2>
+        <h2>Everyone plays the clock differently.</h2>
         <p className="thesis">
-          How long someone thinks, how their pace shifts under pressure, when they show up to play — these habits are
-          as identifying as the moves themselves, with zero use of what moves they actually chose. Trained and tested
-          across {nPlayers} real players, held out honestly.
+          Think of it like a heartbeat — how long a player thinks, how their pace shifts under pressure, when they
+          tend to log on. That rhythm turns out to be distinctive enough to tell players apart, without looking at a
+          single move they made. Tested against {nPlayers} players, on games the model had never seen.
         </p>
       </div>
       <div className="hero-dial">
-        <div className="label">Balanced accuracy · {headline?.n_games ?? "?"} games</div>
+        <div className="label">Accuracy over {headline?.n_games ?? "?"} games</div>
         <div style={{ position: "relative", width: 200, height: 200 }}>
           <svg viewBox="0 0 200 200" width={200} height={200}>
             <circle cx={100} cy={100} r={r} fill="none" stroke="var(--surface-2)" strokeWidth={14} />
