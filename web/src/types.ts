@@ -39,6 +39,23 @@ export interface FeatureImportanceRow {
   importance: number;
 }
 
+export interface RankKPoint {
+  k: number;
+  overall_accuracy: number;
+  balanced_accuracy: number;
+}
+
+export interface SessionPositionBucket {
+  accuracy: number;
+  n_games: number;
+}
+
+export interface CorrectnessPatterns {
+  within_player_correlations: { signal: string; within_player_corr_with_correctness: number; n_games: number }[];
+  tilt_buckets: Record<string, SessionPositionBucket>;
+  session_position_buckets: Record<string, SessionPositionBucket>;
+}
+
 export interface Cohort {
   cohort: string;
   feature_mode: "full" | "biometric";
@@ -50,10 +67,31 @@ export interface Cohort {
   model_used: string;
   model_comparison: ModelComparison;
   multi_game_accuracy: MultiGamePoint[];
+  rank_k_accuracy: RankKPoint[];
   class_counts_n: number;
   per_class_recall: Record<string, number>;
+  per_class_recall_summary: { min: number; max: number; median: number };
+  most_confused_pair: [string, string] | null;
+  most_confused_rate: number;
+  correctness_patterns: CorrectnessPatterns | null;
   sample_games: SampleGame[];
   feature_importance?: FeatureImportanceRow[] | null;
+}
+
+export interface ConfidenceTracePoint {
+  n_games: number;
+  game_id: string;
+  game_date: string;
+  running_prob_correct: number;
+  top_guess: string;
+  top_guess_prob: number;
+  correct_so_far: boolean;
+}
+
+export interface ConfidenceTrace {
+  player: string;
+  n_games: number;
+  trace: ConfidenceTracePoint[];
 }
 
 export interface MoveEntry {
@@ -87,4 +125,5 @@ export interface IdentificationData {
   pool_biometric: Cohort;
   pool: Cohort;
   narrated_games: NarratedGame[];
+  confidence_trace: ConfidenceTrace | null;
 }

@@ -5,6 +5,8 @@ import { Hero } from "./components/Hero";
 import { ModelComparison } from "./components/ModelComparison";
 import { AccuracyCurve } from "./components/AccuracyCurve";
 import { GameExplainer } from "./components/GameExplainer";
+import { MetricsOverview } from "./components/MetricsOverview";
+import { ConfidenceTrace } from "./components/ConfidenceTrace";
 
 const DATA = data as unknown as IdentificationData;
 
@@ -61,11 +63,38 @@ export default function App() {
           </div>
         </section>
 
+        {DATA.confidence_trace && (
+          <section>
+            <div className="sec-head">
+              <div className="eyebrow">Proof, not just a number</div>
+              <h2>One game is a guess. Twenty is a pattern.</h2>
+              <p>
+                The accuracy curve above is an average over the whole pool. Here's what it actually looks like for
+                one real account, game by game — every point is a real Chess.com game you can go check.
+              </p>
+            </div>
+            <ConfidenceTrace trace={DATA.confidence_trace} />
+          </section>
+        )}
+
+        <section>
+          <div className="sec-head">
+            <div className="eyebrow">Under the hood</div>
+            <h2>What we actually checked</h2>
+            <p>Balanced accuracy is one number. Here's the rest of what came out of evaluating this seriously.</p>
+          </div>
+          <MetricsOverview cohort={cohort} />
+        </section>
+
         <section>
           <div className="sec-head">
             <div className="eyebrow">Explainability</div>
             <h2>Look inside a prediction</h2>
-            <p>Held-out games with the model's actual reasoning attached — click through the moves and see what it noticed.</p>
+            <p>
+              Held-out games with the model's actual reasoning attached, picked at random — including the ones it
+              gets wrong. A single game is the hardest version of this problem by design (see the accuracy curve
+              above); the point here is showing real reasoning, not just the wins.
+            </p>
           </div>
           <GameExplainer games={DATA.narrated_games} />
         </section>
