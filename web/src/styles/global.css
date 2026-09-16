@@ -92,6 +92,29 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
 .hero-dial .label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
 .hero-dial .digit { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-variant-numeric: tabular-nums; }
 .hero-dial .sub { font-size: 12.5px; color: var(--text-muted); }
+
+.clock-body {
+  position: relative; width: 220px; background: var(--bezel); border-radius: 14px;
+  padding: 22px 18px 16px; box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.15);
+  border: 1px solid var(--line);
+}
+.clock-plunger {
+  position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+  width: 40px; height: 22px; border-radius: 8px; background: var(--bezel);
+  border: 1px solid var(--line); box-shadow: 0 2px 3px rgba(0,0,0,0.15), inset 0 2px 0 rgba(255,255,255,0.2);
+}
+.clock-screen {
+  background: #14201a; border-radius: 8px; padding: 18px 12px; text-align: center;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+}
+.clock-digits {
+  font-size: 40px; font-weight: 700; color: #6cf2a3; letter-spacing: 0.02em;
+  text-shadow: 0 0 10px rgba(108,242,163,0.45);
+}
+.clock-caption {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #6cf2a3; opacity: 0.65; margin-top: 4px;
+}
 .games-adjust {
   display: inline-flex; background: var(--surface-2); border-radius: 8px; padding: 3px;
   box-shadow: var(--inset); border: 1px solid var(--line); gap: 2px;
