@@ -1,0 +1,209 @@
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/shap/explainers/_tree.py:632: UserWarning: LightGBM binary classifier with TreeExplainer shap values output has changed to a list of ndarray
+  warnings.warn(
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3036: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3036: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3036: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3036: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/ubuntu/chess-clock/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[None, :]
+Building profile: cdznjerry / bullet
+Building profile: BIG_TONKA_T / bullet
+Building profile: BIG_TONKA_T / blitz
+Building profile: BIG_TONKA_T / rapid
+Building profile: jerrycdzn / bullet
+Building profile: hikaru / bullet
+Building profile: magnuscarlsen / bullet
+Building profile: fabianocaruana / bullet
+Building profile: firouzja2003 / bullet
+Building profile: lachesisq / bullet
+Building profile: danielnaroditsky / bullet
+Building profile: gothamchess / bullet
+Building profile: anishgiri / bullet
+Building profile: alexanderkapogenio / bullet
+Building profile: caffy564 / bullet
+Building profile: chessetc / bullet
+Building profile: cold_shoulder / bullet
+Building profile: cywuwu / bullet
+Building profile: divyanchampionship-1 / bullet
+Building profile: em-thechessshark / bullet
+Building profile: fitz812 / bullet
+Building profile: jusgeode / bullet
+Building profile: letx / bullet
+Building profile: louishenripaschalis / bullet
+Building profile: lukino77 / bullet
+Building profile: mainemanfm / bullet
+Building profile: mastermatthew52 / bullet
+Building profile: matt_willym / bullet
+Building profile: puppymate / bullet
+Building profile: racketeeree / bullet
+Building profile: samueljoshva / bullet
+Building profile: sangamejay / bullet
+Building profile: savaggeone / bullet
+Building profile: sbcbri / bullet
+Building profile: sheldor2 / bullet
+Building profile: sicarius1979 / bullet
+Building profile: simplechees / bullet
+Building profile: skalybur / bullet
+Building profile: swagasoclean / bullet
+Building profile: tasiabella / bullet
+Building profile: thegranddameofdeath / bullet
+Building profile: trungwin315 / bullet
+Building profile: tv35 / bullet
+Building profile: wolf9057 / bullet
+Building profile: YperPaiktis / bullet
+Building profile: aximal / bullet
+Building profile: bensolo1 / bullet
+Building profile: bhavin878 / bullet
+Building profile: casper_belier / bullet
+Building profile: chessmastere4 / bullet
+Building profile: davit_tiraturyan / bullet
+Building profile: eeeooouuu / bullet
+Building profile: ericj2005 / bullet
+Building profile: evad90 / bullet
+Building profile: firerainbow / bullet
+Building profile: fjonleif04 / bullet
+Building profile: furiously-fast / bullet
+Building profile: gmvidura / bullet
+Building profile: hoangjr / bullet
+Building profile: hopertz / bullet
+Building profile: itsinitiative / bullet
+Building profile: jpequens / bullet
+Building profile: karthikcheckmate / bullet
+Building profile: krisztina_libik / bullet
+Building profile: mavaddat / bullet
+Building profile: mervecix / bullet
+Building profile: moodymountain / bullet
+Building profile: pawnarrow / bullet
+Building profile: rsljsl / bullet
+Building profile: sjoshua2008 / bullet
+Building profile: sumedham95 / bullet
+Building profile: thenoise / bullet
+Building profile: wilder12 / bullet
+Building profile: williamschill / bullet
+Building profile: ChessproUSA / bullet
+Building profile: GK150 / bullet
+Building profile: JuiceboxJoints / bullet
+Building profile: LDog17 / bullet
+Building profile: Mario86 / bullet
+Building profile: abhi-k / bullet
+Building profile: achmines / bullet
+Building profile: alehin / bullet
+Building profile: anurag_b / bullet
+Building profile: arjun_07_07 / bullet
+Building profile: ashwa2e3 / bullet
+Building profile: beg8878 / bullet
+Building profile: dylanfitzpatrick / bullet
+Building profile: gm_chase2010 / bullet
+Building profile: gradaschi / bullet
+Building profile: jbaez / bullet
+Building profile: lancdaddy / bullet
+Building profile: mr_pacheco / bullet
+Building profile: muckelchen / bullet
+Building profile: neeraj_ak / bullet
+Building profile: nicoaaa / bullet
+Building profile: one_min_mania / bullet
+Building profile: panchoponcho / bullet
+Building profile: pminear / bullet
+Building profile: rds197719 / bullet
+Building profile: salman_ali_khan / bullet
+Building profile: scott-fox21 / bullet
+Building profile: sushantrider / bullet
+Building profile: teyyub / bullet
+Building profile: yumet023 / bullet
+Building profile: zeekybeans / bullet
+Building profile: aggelosvelo / bullet
+Building profile: antoninosota / bullet
+Building profile: berettar / bullet
+Building profile: danielbolk / bullet
+Building profile: denizozyurek / bullet
+Building profile: dragongana / bullet
+Building profile: gratch / bullet
+Building profile: joltarn / bullet
+Building profile: juan1992 / bullet
+Building profile: jusef / bullet
+Building profile: kcdriver / bullet
+Building profile: l0x / bullet
+Building profile: mizukyu0 / bullet
+Building profile: p3tter4 / bullet
+Building profile: runchess / bullet
+Building profile: seanpetrosian / bullet
+Building profile: sirlumbreras / bullet
+Building profile: skanaska / bullet
+Building profile: superbuddha / bullet
+Building profile: thakilan / bullet
+Building profile: ulikcnarf / bullet
+Building profile: venca1234 / bullet
+Building profile: worgplayer / bullet
+Building profile: yossy45 / bullet
+Building identification demo: cohort=primary (full)
+    [primary] logistic regression balanced acc: 0.882 | HGB: 0.918 | LightGBM: 0.916
+    [primary] confidence-weighted fusion vs. uniform (delta balanced acc): 1g: +0.000, 3g: +0.003, 5g: +0.000, 10g: +0.000, 20g: +0.000, 50g: +0.000
+    [primary] session-selected fusion vs. uniform (delta balanced acc): 1g: +0.082, 3g: +0.013, 5g: +0.001, 10g: +0.000, 20g: +0.000, 50g: +0.000
+    [primary] rank-1/3/5: 0.920, 1.000 | multi-game (1/5/20 games): 0.920, 0.999, 1.000
+Building identification demo: cohort=primary_biometric (biometric-only)
+    [primary_biometric] logistic regression balanced acc: 0.787 | HGB: 0.861 | LightGBM: 0.863
+    [primary_biometric] confidence-weighted fusion vs. uniform (delta balanced acc): 1g: +0.000, 3g: +0.002, 5g: +0.001, 10g: +0.000, 20g: +0.000, 50g: +0.000
+    [primary_biometric] session-selected fusion vs. uniform (delta balanced acc): 1g: +0.137, 3g: +0.034, 5g: +0.008, 10g: +0.001, 20g: +0.000, 50g: +0.000
+    [primary_biometric] rank-1/3/5: 0.864, 1.000 | multi-game (1/5/20 games): 0.864, 0.992, 1.000
+Building identification demo: cohort=pool (full)
+    [pool] logistic regression balanced acc: 0.221 | HGB: 0.273 | LightGBM: 0.293
+    [pool] confidence-weighted fusion vs. uniform (delta balanced acc): 1g: +0.000, 3g: -0.038, 5g: -0.086, 10g: -0.161, 20g: -0.195, 50g: -0.130
+    [pool] session-selected fusion vs. uniform (delta balanced acc): 1g: -0.094, 3g: -0.189, 5g: -0.178, 10g: -0.220, 20g: -0.234, 50g: -0.146
+    [pool] rank-1/3/5: 0.299, 0.512, 0.622, 0.764 | multi-game (1/5/20 games): 0.299, 0.625, 0.938
+Building identification demo: cohort=pool_biometric (biometric-only)
+    [pool_biometric] logistic regression balanced acc: 0.154 | HGB: 0.233 | LightGBM: 0.249
+    [pool_biometric] confidence-weighted fusion vs. uniform (delta balanced acc): 1g: +0.000, 3g: -0.035, 5g: -0.085, 10g: -0.166, 20g: -0.226, 50g: -0.178
+    [pool_biometric] session-selected fusion vs. uniform (delta balanced acc): 1g: -0.042, 3g: -0.108, 5g: -0.108, 10g: -0.204, 20g: -0.278, 50g: -0.199
+    [pool_biometric] rank-1/3/5: 0.249, 0.450, 0.559, 0.713 | multi-game (1/5/20 games): 0.249, 0.556, 0.896
+Building narrated games (chessboard replay data) from the pool's biometrics-only sample...
+    narrated game 115162167711 (cdznjerry, wrong): 46 moves
+    narrated game 140439075822 (thenoise, wrong): 48 moves
+    narrated game 59999514 (jusef, wrong): 44 moves
+    narrated game 82870808149 (gm_chase2010, wrong): 35 moves
+    narrated game 891640848 (mavaddat, wrong): 54 moves
+    narrated game 117724216927 (hoangjr, wrong): 68 moves
+    narrated game 2345334968 (lukino77, wrong): 69 moves
+    narrated game 113003959467 (mizukyu0, wrong): 70 moves
+    narrated game 651827789 (juan1992, wrong): 52 moves
+    narrated game 123538834833 (tasiabella, wrong): 48 moves
+    narrated game 355848306 (one_min_mania, wrong): 102 moves
+    narrated game 48724812383 (swagasoclean, wrong): 38 moves
+    narrated game 806183175 (itsinitiative, correct): 44 moves
+    narrated game 408307583 (matt_willym, wrong): 84 moves
+    narrated game 6024486994 (trungwin315, wrong): 127 moves
+    narrated game 72666843445 (beg8878, correct): 97 moves
+    narrated game 119764274 (berettar, wrong): 96 moves
+    narrated game 95474975413 (ChessproUSA, wrong): 34 moves
+    narrated game 850141018 (venca1234, wrong): 48 moves
+    narrated game 1195933 (sbcbri, correct): 133 moves
+    narrated game 47021443037 (ashwa2e3, correct): 38 moves
+    narrated game 13160577401 (wilder12, correct): 39 moves
+    narrated game 1786902129 (davit_tiraturyan, wrong): 67 moves
+    narrated game 5635192144 (seanpetrosian, wrong): 46 moves
+    narrated game 89555482803 (racketeeree, wrong): 65 moves
+    narrated game 3017151219 (puppymate, correct): 45 moves
+    narrated game 90479910671 (lancdaddy, wrong): 85 moves
+    narrated game 1009263740 (teyyub, wrong): 38 moves
+    narrated game 789191438 (firerainbow, wrong): 50 moves
+    narrated game 2244135816 (dylanfitzpatrick, wrong): 50 moves
+    narrated game 100098753909 (casper_belier, wrong): 68 moves
+    narrated game 3014297788 (williamschill, wrong): 45 moves
+    narrated game 234117212 (skanaska, wrong): 68 moves
+    narrated game 143892912716 (sangamejay, correct): 46 moves
+    narrated game 2898215012 (skalybur, wrong): 59 moves
+    narrated game 1499445243 (fitz812, wrong): 64 moves
+    narrated game 6655196 (jusgeode, wrong): 53 moves
+    narrated game 3527989631 (divyanchampionship-1, wrong): 112 moves
+    narrated game 44292043027 (chessmastere4, wrong): 109 moves
+    narrated game 3038368043 (LDog17, wrong): 120 moves
+Wrote /private/tmp/claude-501/-Users-jerrychen-Projects-chess-clock/8b9bcf87-b66e-4b98-9e9b-bba7f14095e2/scratchpad/dashboard/data.json (2904.0 KB)
