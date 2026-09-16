@@ -92,29 +92,3 @@ The parser tags each row with a `source` column. If you combine both, treat
 source as a feature — rating scales and player pools differ between sites, and
 a Chess.com 2000 is not a Lichess 2000.
 
-## Status
-
-- [x] fetch (chess.com + lichess) / parse / annotate / features, all current
-      for two players across bullet/blitz/rapid
-- [x] lag-spike and skill-drift handling; premove/lag filtering validated
-- [x] run diagnostics.py, decide pooled vs. windowed baseline — trailing window (default 270d) for live use, full history + `recency_weight` for descriptive
-- [x] think-time baseline model (`model.py`, Model 1) — R²≈0.33-0.52 depending on player/mode, sensible SHAP features (clock state, phase, material, opponent's preceding think-time, Maia human-move-likelihood)
-- [x] move-quality model (`model.py`, Model 2) — weak-to-moderate signal (R²≈0.08-0.31) even restricted to contested positions
-- [x] `insights.py` — bucket scoring (Overthought/Underthought/Panic/Clean/Instinctive) built on the trained Model 1 booster's actual predictions, plus a premove behavior profile (rate/accuracy/situations, not just filtered noise)
-- [x] Maia (github.com/CSSLab/maia-chess) human-move-likelihood integration (`src/maia_query.py`, `src/maia_annotate.py`) — per-move human probability from lc0, at the player's nearest rating bin
-- [ ] dashboard
-- [ ] multi-player identification pool (deferred — see PROJECT_LOG.md)
-
-Known feature families beyond the original list: recapture/forced-move
-"obviousness" (`is_recapture`, `is_forced`), mate-aware outcome buckets
-(`outcome_bucket`, `outcome_changes`, `mate_distance_gap` — see annotate.py's
-MultiPV sort fix), pawn-structure open/closed proxies (`open_files`,
-`half_open_files`, `blocked_pawns`), pins/forks/skewers/discovered checks,
-bishop pair and pawn weaknesses, book/theory-move and tablebase lookups,
-search-instability across iterative deepening, voluntary-sacrifice detection,
-a coarse `game_phase` label, `opp_think_time_prev`, session/fatigue features,
-and Maia-derived human-move-likelihood (`maia_prob_played`, `maia_surprise`,
-`maia_prob_best_move`, `requires_overriding_instinct`). See PROJECT_LOG.md
-for the full running history.
-
-See CLAUDE.md for design rationale and the phase 2 extension.
