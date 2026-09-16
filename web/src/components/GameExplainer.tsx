@@ -55,6 +55,10 @@ export function GameExplainer({ games }: { games: NarratedGame[] }) {
   const move = game.moves[moveIdx];
   const isWhiteToMove = move.fen_before.split(" ")[1] === "w";
   const byNumber = useMemo(() => groupByMoveNumber(game.moves), [game]);
+  const trackedIsBlack = useMemo(() => {
+    const firstOwn = game.moves.find((m) => m.is_own);
+    return firstOwn ? firstOwn.ply % 2 === 1 : false;
+  }, [game]);
 
   const mergedReasons = useMemo(() => {
     const merged = mergeCyclicalFeatures(game.top_reasons || []);
@@ -65,7 +69,7 @@ export function GameExplainer({ games }: { games: NarratedGame[] }) {
   const top2 = mergedReasons.slice(0, 2).map((r) => featureLabel(r.feature).toLowerCase());
   const summary = game.correct
     ? <>Correctly landed on <b>{game.predicted_player}</b>, leaning on <b>{top2[0] || ""}</b>{top2[1] ? <> and <b>{top2[1]}</b></> : null}.</>
-    : <>Guessed <b>{game.predicted_player}</b> — actually <b>{game.true_player}</b> — pulled by <b>{top2[0] || ""}</b>{top2[1] ? <> and <b>{top2[1]}</b></> : null}.</>;
+    : <>Guessed <b>{game.predicted_player}</b>, but it was actually <b>{game.true_player}</b>. Pulled by <b>{top2[0] || ""}</b>{top2[1] ? <> and <b>{top2[1]}</b></> : null}.</>;
 
   const keyMoments = game.moves.map((m, i) => ({ m, i })).filter((x) => x.m.key_moment);
   const gameLink = /^\d+$/.test(String(game.game_id)) ? `https://www.chess.com/game/live/${game.game_id}` : null;
@@ -80,7 +84,7 @@ export function GameExplainer({ games }: { games: NarratedGame[] }) {
 
       <div className="board-layout" style={{ marginTop: 12 }}>
         <div style={{ width: "100%", maxWidth: 280, marginInline: "auto" }}>
-          <Chessboard fen={move.fen_before} size={280} />
+          <Chessboard fen={move.fen_before} size={280} flipped={trackedIsBlack} />
           <div className="deck" style={{ textAlign: "center", marginTop: 6 }}>
             move {move.move_number} · {isWhiteToMove ? "white" : "black"} to play
           </div>

@@ -5,35 +5,47 @@ function pct(v: number, digits = 0): string {
 }
 
 export function PairwiseAccuracy({ data }: { data: PairwiseSummary }) {
-  const sorted = [...data.pairs].sort((a, b) => a.balanced_accuracy - b.balanced_accuracy);
-  const hardest = sorted[0];
-  const easiest = sorted[sorted.length - 1];
+  const sorted = [...data.pairs].sort((a, b) => b.balanced_accuracy - a.balanced_accuracy);
+  const shown = [...sorted.slice(0, 5), ...sorted.slice(-5)];
+  const max = sorted[0].balanced_accuracy;
+  const min = sorted[sorted.length - 1].balanced_accuracy;
 
   return (
     <div className="card">
-      <div className="strength-strip" style={{ height: 70 }}>
-        {sorted.map((p) => {
-          const h = Math.max(2, ((p.balanced_accuracy - 0.5) / 0.5) * 100);
-          const color = p.balanced_accuracy >= 0.85 ? "var(--good)" : p.balanced_accuracy >= 0.65 ? "var(--accent)" : "var(--secondary)";
+      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", fontFamily: "IBM Plex Mono, monospace", marginBottom: 8 }}>
+        Easiest to tell apart
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {shown.map((p, i) => {
+          const w = ((p.balanced_accuracy - min) / (max - min)) * 100;
+          const isEasiest = i < 5;
           return (
-            <div
-              key={p.pair.join("-")}
-              className="strength-bar"
-              title={`${p.pair[0]} vs ${p.pair[1]}: ${pct(p.balanced_accuracy)}`}
-              style={{ height: `${h}%`, background: color }}
-            />
+            <div key={p.pair.join("-")}>
+              {i === 5 && (
+                <>
+                  <div style={{ fontSize: 11.5, color: "var(--text-muted)", padding: "4px 0" }}>
+                    {data.n_pairs - 10} more pairs in between · {pct(data.median, 0)} median
+                  </div>
+                  <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", fontFamily: "IBM Plex Mono, monospace", margin: "6px 0 8px" }}>
+                    Hardest to tell apart
+                  </div>
+                </>
+              )}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 44px", alignItems: "center", gap: 10 }}>
+                <div>
+                  <div style={{ fontSize: 12.5, marginBottom: 3 }}>
+                    <b>{p.pair[0]}</b> vs <b>{p.pair[1]}</b>
+                  </div>
+                  <div className="bar-track" style={{ height: 6 }}>
+                    <div className="bar-fill" style={{ width: `${Math.max(4, w)}%`, background: isEasiest ? "var(--good)" : "var(--secondary)" }} />
+                  </div>
+                </div>
+                <span className="mono" style={{ fontSize: 12.5, textAlign: "right" }}>{pct(p.balanced_accuracy)}</span>
+              </div>
+            </div>
           );
         })}
       </div>
-      <div className="strength-scale" style={{ marginTop: 6 }}>
-        <span>hardest pair to tell apart</span>
-        <span>50% (coin flip)</span>
-        <span>easiest pair</span>
-      </div>
-      <p className="deck" style={{ marginTop: 12 }}>
-        Hardest: <b>{hardest.pair[0]}</b> vs <b>{hardest.pair[1]}</b> ({pct(hardest.balanced_accuracy)}) · Easiest:{" "}
-        <b>{easiest.pair[0]}</b> vs <b>{easiest.pair[1]}</b> ({pct(easiest.balanced_accuracy)})
-      </p>
     </div>
   );
 }

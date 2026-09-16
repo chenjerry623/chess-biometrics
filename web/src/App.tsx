@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import data from "./data/identification.json";
 import type { IdentificationData } from "./types";
 import { Hero } from "./components/Hero";
@@ -42,34 +43,43 @@ export default function App() {
           </div>
           <span className="deck">
             {mode === "biometric"
-              ? "Clock allocation, pace, and session timing only — the model never sees what was actually played."
+              ? "Clock allocation, pace, and session timing only. The model never sees what was actually played."
               : "Adds move-quality signals on top of the timing data."}
           </span>
         </div>
 
         <section>
           <div className="sec-head">
-            <div className="eyebrow">Model</div>
-            <h2>Picking one player out of {cohort.class_counts_n}</h2>
+            <div className="eyebrow">01</div>
+            <h2>Gets it right {pct(cohort.balanced_accuracy)} of the time, from one game</h2>
             <p>
-              {cohort.n_games_total} games total. On a single game, the model gets it right{" "}
-              {pct(cohort.balanced_accuracy)} of the time — random guessing would land {pct(cohort.chance_baseline, 1)}
-              , and just picking the most common player would get {pct(cohort.majority_baseline, 1)}.
+              Random guessing among {cohort.class_counts_n} players would land {pct(cohort.chance_baseline, 1)}.
+              This is measured across {cohort.n_games_total.toLocaleString()} real games.
             </p>
           </div>
           <div className="grid duo">
             <ModelComparison cohort={cohort} />
             <AccuracyCurve cohort={cohort} />
           </div>
+          <p className="footnote">
+            <b>Balanced accuracy:</b> the average of each player's own recall (their correct guesses divided by
+            their total games). This keeps a player with a thousand games from outweighing one with fifty.
+          </p>
+          <p className="footnote">
+            <b>The pool:</b> {DATA.n_players} players, mostly a rating-diverse random sample pulled from a large
+            Chess.com club across seven bullet rating bands, from beginner to 2300+. A handful of well-known titled
+            players and streamers (Hikaru, Magnus Carlsen, Fabiano Caruana, and others) were added for variety.
+          </p>
         </section>
 
         {DATA.pairwise && (
           <section>
             <div className="sec-head">
-              <div className="eyebrow">Just two players</div>
-              <h2>Median {pct(DATA.pairwise.median, 0)}, across 50 random pairs</h2>
+              <div className="eyebrow">02</div>
+              <h2>How accurately can we predict a game between 2 possible players?</h2>
               <p>
-                Range: {pct(DATA.pairwise.min, 0)}–{pct(DATA.pairwise.max, 0)}. Not one cherry-picked matchup — every pair, its own model.
+                Median {pct(DATA.pairwise.median, 0)} across {DATA.pairwise.n_pairs} random pairs from the pool,
+                each with its own model.
               </p>
             </div>
             <PairwiseAccuracy data={DATA.pairwise} />
@@ -78,11 +88,11 @@ export default function App() {
 
         <section>
           <div className="sec-head">
-            <div className="eyebrow">Explainability</div>
+            <div className="eyebrow">03</div>
             <h2>Look inside a prediction</h2>
             <p>
-              Correct predictions only, from the held-out set — as many real examples as we have. Click through the
-              moves to see what the model actually noticed.
+              Correct predictions from the held-out set, as many as we have. Click through the moves to see what the
+              model noticed.
             </p>
           </div>
           <GameExplainer games={DATA.narrated_games} />
@@ -90,9 +100,9 @@ export default function App() {
 
         <section>
           <div className="sec-head">
-            <div className="eyebrow">Proof</div>
-            <h2>Real output, not a mockup</h2>
-            <p>What the model actually returns for a real held-out game.</p>
+            <div className="eyebrow">04</div>
+            <h2>What the model actually returns</h2>
+            <p>The raw prediction for one real held-out game.</p>
           </div>
           <ProofOutput cohort={cohort} />
         </section>
@@ -102,7 +112,8 @@ export default function App() {
         chess-clock · a personal clock-management analyzer · {DATA.n_players} players in the pool ·{" "}
         <a href="https://github.com/chenjerry623/chess-biometrics" target="_blank" rel="noopener noreferrer">
           source on GitHub
-        </a>
+        </a>{" "}
+        · <Link to="/players" className="subtle-link">player list</Link>
       </footer>
     </>
   );

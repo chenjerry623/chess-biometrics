@@ -25,8 +25,8 @@ export function AccuracyCurve({ cohort }: { cohort: Cohort }) {
         Peaks at {best.n_games} games: {pct(best.balanced_accuracy)} balanced accuracy.
       </p>
       <p className="deck" style={{ marginBottom: 10 }}>
-        One game alone is a weak signal — that's true of most behavioral biometrics, not just this one. Give it a
-        handful of games from the same {cohort.class_counts_n}-player pool and accuracy climbs fast.
+        A single game doesn't say much on its own. Watch a handful from the same {cohort.class_counts_n}-player pool
+        and it adds up fast.
       </p>
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ maxWidth: W }}>
         <line x1={padL} y1={chanceY} x2={W - padR} y2={chanceY} stroke="var(--text-muted)" strokeDasharray="3 3" opacity={0.5} />

@@ -36,8 +36,7 @@ export function ProofOutput({ cohort }: { cohort: Cohort }) {
         {json}
       </pre>
       <p className="deck" style={{ marginTop: 10 }}>
-        A median-confidence example, not the best one available — this is what the model actually outputs, not a
-        polished summary of it.{" "}
+        This is a typical example, picked by sorting all correct guesses by confidence and taking the middle one.{" "}
         {link && <a href={link} target="_blank" rel="noopener noreferrer">Check the real game →</a>}
       </p>
     </div>
