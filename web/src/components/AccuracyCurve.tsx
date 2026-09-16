@@ -1,0 +1,50 @@
+import type { Cohort } from "../types";
+
+export function AccuracyCurve({ cohort }: { cohort: Cohort }) {
+  const points = cohort.multi_game_accuracy;
+  const W = 560, H = 220, padL = 42, padR = 16, padT = 16, padB = 30;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const xMax = points[points.length - 1].n_games;
+
+  const x = (n: number) => padL + (Math.log(n + 1) / Math.log(xMax + 1)) * innerW;
+  const y = (v: number) => padT + (1 - v) * innerH;
+
+  const linePath = points.map((p, i) => `${i === 0 ? "M" : "L"} ${x(p.n_games)} ${y(p.balanced_accuracy)}`).join(" ");
+  const chanceY = y(cohort.chance_baseline);
+
+  return (
+    <div className="card">
+      <h3>Accuracy scales with how many games you look at</h3>
+      <p className="deck" style={{ marginBottom: 10 }}>
+        A single game is a weak signal — no real biometric system decides off one sample either. Balanced accuracy
+        across {cohort.class_counts_n} players, held-out test set.
+      </p>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" style={{ maxWidth: W }}>
+        <line x1={padL} y1={chanceY} x2={W - padR} y2={chanceY} stroke="var(--text-muted)" strokeDasharray="3 3" opacity={0.5} />
+        <text x={W - padR} y={chanceY - 4} textAnchor="end" fontSize={10} fill="var(--text-muted)" fontFamily="IBM Plex Mono, monospace">
+          chance
+        </text>
+        {[0, 0.25, 0.5, 0.75, 1].map((f) => (
+          <g key={f}>
+            <line x1={padL} y1={padT + (1 - f) * innerH} x2={W - padR} y2={padT + (1 - f) * innerH} stroke="var(--line)" strokeWidth={1} />
+            <text x={padL - 6} y={padT + (1 - f) * innerH + 3} textAnchor="end" fontSize={10} fill="var(--text-muted)" fontFamily="IBM Plex Mono, monospace">
+              {(f * 100).toFixed(0)}%
+            </text>
+          </g>
+        ))}
+        <path d={linePath} fill="none" stroke="var(--accent)" strokeWidth={2.5} />
+        {points.map((p) => (
+          <g key={p.n_games}>
+            <circle cx={x(p.n_games)} cy={y(p.balanced_accuracy)} r={4} fill="var(--accent)" />
+            <text x={x(p.n_games)} y={H - padB + 16} textAnchor="middle" fontSize={10.5} fill="var(--text-muted)" fontFamily="IBM Plex Mono, monospace">
+              {p.n_games}
+            </text>
+          </g>
+        ))}
+        <text x={(padL + W - padR) / 2} y={H - 2} textAnchor="middle" fontSize={10.5} fill="var(--text-muted)" fontFamily="IBM Plex Mono, monospace">
+          games aggregated
+        </text>
+      </svg>
+    </div>
+  );
+}
