@@ -31,7 +31,8 @@ export function PlayersPage() {
         <h2 style={{ fontSize: 22, marginTop: 10 }}>Players in the pool</h2>
         <p className="deck" style={{ marginTop: 6 }}>
           Bullet games only, one row per account. Recall is how often the identification model correctly names this
-          player when it's actually them.
+          player when it's actually them. One account here (jerrycdzn) shares an identity with another
+          (cdznjerry) for identification purposes, so it has no recall of its own.
         </p>
       </div>
       <input
@@ -49,12 +50,12 @@ export function PlayersPage() {
           <span>Recall</span>
         </div>
         {filtered.map((p) => (
-          <div className="players-row" key={p.username}>
+          <Link className="players-row players-row-link" key={p.username} to={`/players/${p.username}`}>
             <span>{p.username}</span>
             <span className="mono">{p.current_rating ? Math.round(p.current_rating) : "—"}</span>
             <span className="mono">{p.n_games ?? "—"}</span>
             <span className="mono">{pct(p.recall)}</span>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -37,7 +37,7 @@ export function Hero({ cohort, nPlayers }: { cohort: Cohort; nPlayers: number })
             </button>
           ))}
         </div>
-        <div className="sub">games aggregated · {pct(cohort.chance_baseline, 0)} by chance</div>
+        <div className="sub">after watching {headline?.n_games ?? "?"} games · {pct(cohort.chance_baseline, 0)} by chance</div>
       </div>
     </section>
   );

@@ -227,6 +227,8 @@ footer .subtle-link:hover { color: var(--accent-strong); }
   font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em;
 }
 .players-row span:not(:first-child) { text-align: right; }
+.players-row-link { text-decoration: none; color: var(--text); border-radius: 6px; margin: 0 -4px; padding-left: 8px; padding-right: 8px; }
+.players-row-link:hover { background: var(--surface-2); }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }

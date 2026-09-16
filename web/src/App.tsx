@@ -18,6 +18,7 @@ function pct(v: number, digits = 1): string {
 export default function App() {
   const [mode, setMode] = useState<"biometric" | "full">("biometric");
   const cohort = mode === "biometric" ? DATA.pool_biometric : DATA.pool;
+  const bestAccuracy = cohort.multi_game_accuracy.reduce((a, b) => (b.balanced_accuracy > a.balanced_accuracy ? b : a), cohort.multi_game_accuracy[0]);
 
   return (
     <>
@@ -30,7 +31,7 @@ export default function App() {
       </div>
 
       <div className="wrap">
-        <Hero cohort={cohort} nPlayers={DATA.n_players} />
+        <Hero cohort={cohort} nPlayers={cohort.class_counts_n} />
 
         <div className="toggle-row">
           <div className="switch">
@@ -51,10 +52,12 @@ export default function App() {
         <section>
           <div className="sec-head">
             <div className="eyebrow">01</div>
-            <h2>Gets it right {pct(cohort.balanced_accuracy)} of the time, from one game</h2>
+            <h2>Achieves {pct(bestAccuracy.balanced_accuracy)} accuracy</h2>
             <p>
-              Random guessing among {cohort.class_counts_n} players would land {pct(cohort.chance_baseline, 1)}.
-              This is measured across {cohort.n_games_total.toLocaleString()} real games.
+              That's after observing {bestAccuracy.n_games} games from the same player. From a single game, it's
+              {" "}{pct(cohort.balanced_accuracy)}, well above the {pct(cohort.chance_baseline, 1)} you'd get from
+              random guessing among {cohort.class_counts_n} players. Measured across{" "}
+              {cohort.n_games_total.toLocaleString()} real games.
             </p>
           </div>
           <div className="grid duo">
@@ -66,9 +69,9 @@ export default function App() {
             their total games). This keeps a player with a thousand games from outweighing one with fifty.
           </p>
           <p className="footnote">
-            <b>The pool:</b> {DATA.n_players} players, mostly a rating-diverse random sample pulled from a large
-            Chess.com club across seven bullet rating bands, from beginner to 2300+. A handful of well-known titled
-            players and streamers (Hikaru, Magnus Carlsen, Fabiano Caruana, and others) were added for variety.
+            <b>The pool:</b> {cohort.class_counts_n} players, mostly randomly pulled from Chess.com, spanning
+            beginner to 2300+. A handful of well-known titled players and streamers (Hikaru, Magnus Carlsen, Fabiano
+            Caruana, and others) were added for variety.
           </p>
         </section>
 
@@ -131,8 +134,14 @@ export default function App() {
       </div>
 
       <footer>
-        chess-clock · a personal clock-management analyzer · {DATA.n_players} players in the pool ·{" "}
-        <Link to="/players" className="subtle-link">player list</Link>
+        chess-clock · a personal clock-management analyzer ·{" "}
+        <Link to="/players" className="subtle-link">{DATA.n_players} accounts tracked →</Link>
+        <div style={{ marginTop: 10 }}>
+          Built by Jerry Chen ·{" "}
+          <a href="https://github.com/chenjerry623" target="_blank" rel="noopener noreferrer">GitHub</a>
+          {" "}·{" "}
+          <a href="https://www.linkedin.com/in/jerrychen623/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
       </footer>
     </>
   );
