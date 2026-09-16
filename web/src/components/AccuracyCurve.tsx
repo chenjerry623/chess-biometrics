@@ -1,4 +1,9 @@
+import { Fragment } from "react";
 import type { Cohort } from "../types";
+
+function pct(v: number, digits = 1): string {
+  return (v * 100).toFixed(digits) + "%";
+}
 
 export function AccuracyCurve({ cohort }: { cohort: Cohort }) {
   const points = cohort.multi_game_accuracy;
@@ -45,6 +50,21 @@ export function AccuracyCurve({ cohort }: { cohort: Cohort }) {
           games aggregated
         </text>
       </svg>
+
+      <div style={{ marginTop: 14, borderTop: "1px solid var(--line)", paddingTop: 10 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "6px 12px", fontSize: 12.5 }}>
+          <span className="mono" style={{ color: "var(--text-muted)", fontWeight: 600 }}>games</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontWeight: 600 }}>balanced acc.</span>
+          <span className="mono" style={{ color: "var(--text-muted)", fontWeight: 600 }}>raw acc.</span>
+          {points.map((p) => (
+            <Fragment key={p.n_games}>
+              <span className="mono">{p.n_games}</span>
+              <span className="mono">{pct(p.balanced_accuracy)}</span>
+              <span className="mono" style={{ color: "var(--text-muted)" }}>{pct(p.overall_accuracy)}</span>
+            </Fragment>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
