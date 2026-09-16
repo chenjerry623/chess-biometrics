@@ -106,14 +106,33 @@ export default function App() {
           </div>
           <ProofOutput cohort={cohort} />
         </section>
+
+        <section style={{ borderBottom: "none" }}>
+          <div className="card github-card">
+            <div>
+              <h3 style={{ fontSize: 20, marginBottom: 6 }}>See the full project on GitHub</h3>
+              <p className="deck" style={{ fontSize: 13.5 }}>
+                Everything here comes from a real, open pipeline: fetching games from Chess.com, Stockfish and Maia
+                engine annotation, feature engineering, the model code itself, and this dashboard. Read the code,
+                check the methodology, or run it yourself.
+              </p>
+            </div>
+            <a
+              className="btn primary"
+              href="https://github.com/chenjerry623/chess-biometrics"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              View on GitHub →
+            </a>
+          </div>
+        </section>
       </div>
 
       <footer>
         chess-clock · a personal clock-management analyzer · {DATA.n_players} players in the pool ·{" "}
-        <a href="https://github.com/chenjerry623/chess-biometrics" target="_blank" rel="noopener noreferrer">
-          source on GitHub
-        </a>{" "}
-        · <Link to="/players" className="subtle-link">player list</Link>
+        <Link to="/players" className="subtle-link">player list</Link>
       </footer>
     </>
   );
