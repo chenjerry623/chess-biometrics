@@ -27,7 +27,10 @@ export default function App() {
           <span className="dot" />
           <h1>Time Signature</h1>
         </div>
-        <span className="badge">Player identification</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <span className="badge">Player identification</span>
+          <Link to="/players" className="nav-link">Player profiles →</Link>
+        </div>
       </div>
 
       <div className="wrap">

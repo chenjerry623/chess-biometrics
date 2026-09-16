@@ -83,6 +83,11 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
   font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.09em;
   color: var(--text-muted); padding: 3px 8px; border: 1px solid var(--line); border-radius: 20px;
 }
+.nav-link {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; color: var(--accent-strong);
+  text-decoration: none; padding: 6px 4px;
+}
+.nav-link:hover { text-decoration: underline; }
 
 .hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; padding: 48px 0 36px; border-bottom: 1px solid var(--line); }
 @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }

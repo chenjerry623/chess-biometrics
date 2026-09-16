@@ -15,19 +15,38 @@ interface PlayerRow {
   opening_share: number | null;
   middlegame_share: number | null;
   endgame_share: number | null;
+  bucket_clean: number | null;
+  bucket_overthought: number | null;
+  bucket_underthought: number | null;
+  bucket_panic: number | null;
+  bucket_instinctive: number | null;
+  sacrifice_rate: number | null;
+  maia_top_choice_rate: number | null;
+  maia_mean_prob_played: number | null;
+  low_time_share: number | null;
+  panic_rate_low_time: number | null;
+  panic_rate_normal_time: number | null;
 }
 
 const PLAYERS = (playersData as { players: PlayerRow[] }).players;
 
-function pct(v: number | null, digits = 0): string {
+function pct(v: number | null | undefined, digits = 0): string {
   if (v == null) return "—";
   return (v * 100).toFixed(digits) + "%";
 }
 
-function secs(v: number | null): string {
+function secs(v: number | null | undefined): string {
   if (v == null) return "—";
   return v.toFixed(1) + "s";
 }
+
+const BUCKETS: { key: keyof PlayerRow; label: string; color: string }[] = [
+  { key: "bucket_clean", label: "Clean", color: "var(--good)" },
+  { key: "bucket_instinctive", label: "Instinctive", color: "var(--accent)" },
+  { key: "bucket_overthought", label: "Overthought", color: "var(--secondary)" },
+  { key: "bucket_underthought", label: "Underthought", color: "#d99a3f" },
+  { key: "bucket_panic", label: "Panic", color: "#c23b6a" },
+];
 
 export function PlayerProfile() {
   const { username } = useParams();
@@ -89,6 +108,48 @@ export function PlayerProfile() {
           </div>
         </div>
       </div>
+
+      {p.bucket_clean != null && (
+        <div className="card" style={{ marginBottom: 16 }}>
+          <h3 style={{ fontSize: 15, marginBottom: 4 }}>How their moves break down</h3>
+          <p className="deck" style={{ marginBottom: 10, fontSize: 12 }}>
+            Whether time spent matched how much a position actually demanded.
+          </p>
+          <div className="bar-track" style={{ height: 14, display: "flex", overflow: "hidden" }}>
+            {BUCKETS.map((b) => {
+              const v = (p[b.key] as number | null) ?? 0;
+              return v > 0 ? <div key={b.key} style={{ width: `${v * 100}%`, background: b.color }} title={`${b.label}: ${pct(v)}`} /> : null;
+            })}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", marginTop: 10 }}>
+            {BUCKETS.map((b) => (
+              <span key={b.key} style={{ fontSize: 11.5, display: "flex", alignItems: "center", gap: 5 }}>
+                <span style={{ width: 8, height: 8, borderRadius: 2, background: b.color, display: "inline-block" }} />
+                {b.label} {pct(p[b.key] as number | null)}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid duo" style={{ marginBottom: 16 }}>
+        <div className="stat">
+          <span className="k">Plays the "obvious" move</span>
+          <span className="v mono">{pct(p.maia_top_choice_rate)}</span>
+        </div>
+        <div className="stat">
+          <span className="k">Sacrifices material</span>
+          <span className="v mono">{pct(p.sacrifice_rate)}</span>
+        </div>
+      </div>
+
+      {p.low_time_share != null && (
+        <p className="footnote" style={{ marginBottom: 24 }}>
+          <b>Under time pressure:</b> {pct(p.low_time_share)} of their moves were played with the clock running low.
+          Panic-bucket rate in that state: {pct(p.panic_rate_low_time)}, versus {pct(p.panic_rate_normal_time)} with
+          normal time.
+        </p>
+      )}
 
       <p className="footnote" style={{ marginBottom: 40 }}>
         <b>Premove rate:</b> {pct(p.premove_rate)} of their moves were played instantly, with no real think time, a
