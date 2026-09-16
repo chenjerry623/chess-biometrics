@@ -184,6 +184,17 @@ def run_remote_export(ec2, ip: str) -> None:
     rsync_from(str(OUT_PATH), str(OUT_PATH))
     print(f"Wrote {OUT_PATH}")
 
+    # Also pull the full remote export.log on SUCCESS, not just on the
+    # failure path above — real console output (the balanced-accuracy
+    # comparison lines: LR vs HGB vs LightGBM per cohort) is otherwise
+    # only ever visible during the run itself, never saved anywhere once
+    # the instance terminates. Wanted as genuine, unedited proof for the
+    # README — pulling the exact file the run itself wrote, not a
+    # reconstruction of it.
+    log_out = OUT_PATH.parent / "export.log"
+    rsync_from(f"{remote_root}/export.log", str(log_out))
+    print(f"Wrote {log_out}")
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
